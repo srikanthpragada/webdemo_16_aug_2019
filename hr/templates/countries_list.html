@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countries</title>
+</head>
+<body>
+<h1>Countries</h1>
+
+<table style="width:100%" border="1">
+    <tr style="background-color:red;color:white">
+        <th>Name</th>
+        <th>Capital</th>
+        <th>Population</th>
+        <th>Flag</th>
+    </tr>
+
+    {% for c in countries %}
+    <tr>
+        <td>{{c.name}} </td>
+        <td>{{c.capital}} </td>
+        <td style="text-align:right">{{c.population}} </td>
+        <td style="text-align:center">
+            <img src="{{c.flag}}" style="width:100px;height:50px"/>
+        </td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
