@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Jobs</title>
+</head>
+<body>
+<h1>Jobs</h1>
+
+<a href="/hr/addjob">Add New Jobs</a>
+<p></p>
+
+<table style="width:100%" border="1">
+    <tr style="background-color:red;color:white">
+        <th>Id</th>
+        <th>Title</th>
+        <th>Min Salary</th>
+        <th>Description</th>
+    </tr>
+
+    {% for j in jobs %}
+    <tr>
+        <td>{{j.0}} </td>
+        <td>{{j.1 | title }} </td>
+        <td style="text-align:right">{{j.2}} </td>
+        <td> {{j.3}}</td>
+    </tr>
+
+    {% endfor %}
+
+</table>
+
+</body>
+</html>
