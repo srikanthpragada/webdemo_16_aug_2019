@@ -6,4 +6,5 @@ urlpatterns = [
     path('countries/', views.countries_list),
     path('jobs/', job_views.list_jobs),
     path('addjob/', job_views.add_job),
+    path('interest/', views.interest),
 ]

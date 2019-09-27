@@ -1,5 +1,6 @@
 from django.shortcuts import render
 import requests
+from .forms import InterestForm
 import sqlite3
 from django.http import HttpResponse
 
@@ -19,3 +20,17 @@ def countries_list(request):
                   {"countries" : countries} )
 
 
+def interest(request):
+    if request.method == "GET":
+        f = InterestForm()
+        return render(request,'interest.html', {'form' : f})
+    else:
+        f = InterestForm(request.POST)
+        interest = None
+        if f.is_valid():
+            amount = f.cleaned_data['amount']
+            rate = f.cleaned_data['rate']
+            interest = amount * rate / 100
+
+        return render(request, 'interest.html',
+                          {'form': f, 'interest' : interest})
