@@ -2,16 +2,31 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function validateForm()
+        {
+           rate = $("#id_rate").val()  // take value from rate textbox
+           if (rate < 5 || rate > 15)
+           {
+             alert("Sorry! Invalid interest rate. It must be 5 to 15!")
+             return false
+           }
+           return true
+        }
+    </script>
     <title>Interest Calculation</title>
 </head>
 <body>
 <h2>Interest Calculation</h2>
 
-<form method="post">
+<form method="post" onsubmit="return validateForm()">
     {% csrf_token %}
-    <table>
-        {{form}}
-    </table>
+    Loan Amount <br/>
+    {{form.amount}} <span style="color:red">{{form.errors.amount.0}} </span>
+    <p></p>
+    Interest Rate <br/>
+    {{form.rate}}<span style="color:red">{{form.errors.rate.0}} </span>
     <p></p>
     <input type="submit" value="Calculate"/>
 </form>
