@@ -1,0 +1,18 @@
+body {
+ font-family: 'verdana';
+ font-size:12pt;
+}
+
+.banner {
+   background-color:maroon;
+   color:white;
+   font-size:24pt;
+   font-family:Arial;
+   font-weight : bold;
+   letter-spacing:5pt;
+}
+
+.menu {
+   background-color:lightgray;
+   font-weight : bold;
+}
