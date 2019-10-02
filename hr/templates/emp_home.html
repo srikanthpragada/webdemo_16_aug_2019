@@ -4,4 +4,19 @@
 
 <h2>Summary</h2>
 
+<table border="1" cellpadding="5pt">
+    <tr>
+        <td>No. of Employees : </td>
+        <td>{{summary.count }} </td>
+    </tr>
+    <tr>
+        <td>Avgerage Salary  : </td>
+        <td>{{summary.avgsalary | floatformat:2 }} </td>
+    </tr>
+    <tr>
+        <td>Total Salary  : </td>
+        <td>{{summary.totalsalary | floatformat:2}} </td>
+    </tr>
+</table>
+
 {% endblock %}
