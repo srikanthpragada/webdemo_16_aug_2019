@@ -1,10 +1,10 @@
 from django.shortcuts import render, redirect
+import datetime
 from .models import Employee
 from .forms import EmployeeForm
 from django.db.models import Avg, Sum, Count, Max
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse
-
 
 
 def home(request):
@@ -17,14 +17,14 @@ def home(request):
 def add(request):
     if request.method == "GET":
         f = EmployeeForm()
-        return render(request, 'emp_add.html',{"form" : f})
+        return render(request, 'emp_add.html', {"form": f})
     else:
-        f = EmployeeForm(data = request.POST)
+        f = EmployeeForm(data=request.POST)
         if f.is_valid():
-            f.save()   # insert into table
+            f.save()  # insert into table
             return redirect("/hr/emp/list")
         else:
-            return render(request, 'emp_add.html',{"form" : f})
+            return render(request, 'emp_add.html', {"form": f})
 
 
 def delete(request, id):
@@ -45,29 +45,44 @@ def list_emp(request):
                   {'employees': Employee.objects.all()})
 
 
-def edit(request,id):
-    e = Employee.objects.get(id = id)
+def edit(request, id):
+    e = Employee.objects.get(id=id)
     if request.method == "GET":
         f = EmployeeForm(instance=e)
-        return render(request, 'emp_edit.html',{"form" : f})
+        return render(request, 'emp_edit.html', {"form": f})
     else:
-        f = EmployeeForm(instance=e, data = request.POST)
+        f = EmployeeForm(instance=e, data=request.POST)
         if f.is_valid():
-            f.save()   # update into table
+            f.save()  # update into table
             return redirect("/hr/emp/list")
         else:
-            return render(request, 'emp_edit.html',{"form" : f})
+            return render(request, 'emp_edit.html', {"form": f})
+
 
 def maxsal(request):
-    summary = Employee.objects.all().aggregate(maxsal = Max('salary'))
-    return HttpResponse( summary['maxsal'])
+    summary = Employee.objects.all().aggregate(maxsal=Max('salary'))
+    return HttpResponse(summary['maxsal'])
+
 
 def ajax_demo(request):
     return render(request, 'ajax_demo.html')
 
 
+def search_form(request):
+    if 'empname' in request.COOKIES:
+        name = request.COOKIES['empname']
+    else:
+        name = ''
+
+    return render(request, 'emp_search.html', {'name' : name})
+
+
 def search(request):
     name = request.GET['name']
-    emps = Employee.objects.filter(fullname__contains = name)
+    emps = Employee.objects.filter(fullname__contains=name)
     emplist = list(emps.values())  # Convert Employee object to dict
-    return JsonResponse(emplist, safe=False)
+    response =  JsonResponse(emplist, safe=False)
+    response.set_cookie("empname", name,
+         expires = datetime.datetime.now() +
+                  datetime.timedelta(days=10))
+    return response

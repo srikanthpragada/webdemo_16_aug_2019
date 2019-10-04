@@ -1,0 +1,26 @@
+{% extends 'emp_master.html' %}
+
+{% block content %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        function searchEmployees()
+        {
+            $.get("/hr/emp/search?name=" + $("#name").val() ,null,
+                function(employees) {
+                   emps = ""
+                   for (i=0; i < employees.length; i ++)
+                       emps += "<li>" + employees[i].fullname + "</li>"
+                   $("#emplist").html(emps)
+                }
+            );
+        }
+    </script>
+<h2>Search Employees</h2>
+
+<input type="text" id="name" value="{{name}}"/>
+<button onclick="searchEmployees()">Search</button>
+
+<ul id="emplist">
+
+</ul>
+{% endblock %}

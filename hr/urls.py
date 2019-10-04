@@ -14,5 +14,6 @@ urlpatterns = [
     path('emp/delete/<int:id>', emp_views.delete),
     path('emp/edit/<int:id>', emp_views.edit),
     path('emp/maxsal', emp_views.maxsal),
+    path('emp/searchform', emp_views.search_form),
     path('emp/search', emp_views.search),
 ]
