@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rest Client</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        URL = "/hr/rest/employees"
+        function getEmployees()
+        {
+           $.getJSON(URL,null,showEmployees);
+        }
+
+        function showEmployees(employees)
+        {
+           // Show employees in the form of bullets
+           names  = "";
+           for(i = 0; i < employees.length; i ++)
+           {
+               names = names  + "<li>" + employees[i].id +  " - " +
+                                         employees[i].fullname + " - " +
+                                         employees[i].salary + "</li>";
+           }
+           $("#emps").html(names);
+        }
+
+        function addEmployee()
+        {
+          $.ajax(
+             { "url": URL,
+               "data": {
+                       "fullname" : $("#fullname").val(),
+                       "job" : $("#job").val(),
+                       "salary" : $("#salary").val()
+                     },
+               "type" : "post",
+               "success" : add_success,
+               "error" : add_error
+             }
+         ); // ajax()
+
+        }
+
+        function add_success()
+        {
+            alert("Employee has been added successfully!");
+        }
+
+        function add_error(xhr,status,error)
+        {
+            alert("Employee could not be added due to some error -> " + error);
+        }
+
+        function deleteBook()
+        {
+          $.ajax(
+             { "url": URL +  $("#id").val() ,
+               "type" : "DELETE",
+               "success" : function() {
+                              alert("Deleted book successfully!")
+                           },
+               "error" : function() {
+                              alert("Could not delete book!")
+                         }
+             }
+         ); // ajax()
+
+        }
+
+
+    </script>
+
+</head>
+<body>
+<h1>Rest Client</h1>
+<button onclick="getEmployees()">Get All Employees</button>
+<ul id="emps">
+
+</ul>
+<hr/>
+<h2>Add Employee</h2>
+Fullname : <input type="text" id="fullname"/>
+Job  : <input type="text" id="job"/>
+Salary : <input type="number" id="salary"/>
+<button onclick="addEmployee()">Add Employee</button>
+<hr/>
+<h2>Delete Book</h2>
+Id : <input type="text" id="id"/>
+<button onclick="deleteBook()">Delete Book</button>
+
+</body>
+</html>
