@@ -5,7 +5,7 @@
     <title>Rest Client</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
-        URL = "/hr/rest/employees"
+        URL = "/hr/rest/employees/"
         function getEmployees()
         {
            $.getJSON(URL,null,showEmployees);
@@ -51,16 +51,18 @@
             alert("Employee could not be added due to some error -> " + error);
         }
 
-        function deleteBook()
+        function deleteEmployee()
         {
+          // take confirmation
+
           $.ajax(
              { "url": URL +  $("#id").val() ,
                "type" : "DELETE",
                "success" : function() {
-                              alert("Deleted book successfully!")
+                              alert("Deleted employee successfully!")
                            },
                "error" : function() {
-                              alert("Could not delete book!")
+                              alert("Could not delete employee!")
                          }
              }
          ); // ajax()
@@ -84,9 +86,9 @@ Job  : <input type="text" id="job"/>
 Salary : <input type="number" id="salary"/>
 <button onclick="addEmployee()">Add Employee</button>
 <hr/>
-<h2>Delete Book</h2>
+<h2>Delete Employee</h2>
 Id : <input type="text" id="id"/>
-<button onclick="deleteBook()">Delete Book</button>
+<button onclick="deleteEmployee()">Delete Employee</button>
 
 </body>
 </html>

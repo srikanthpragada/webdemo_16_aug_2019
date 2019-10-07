@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views, job_views, emp_views, rest_views
+from . import views, job_views, emp_views, rest_views, class_views
 
 urlpatterns = [
     path('ajaxdemo/', emp_views.ajax_demo),
@@ -19,4 +19,7 @@ urlpatterns = [
     path('rest/employees', rest_views.process_employees),
     path('rest/employees/<int:id>', rest_views.process_employee),
     path('rest/client', rest_views.client),
+    path('about', class_views.AboutView.as_view()),
+    path('emplist', class_views.EmployeesListView.as_view()),
+
 ]
